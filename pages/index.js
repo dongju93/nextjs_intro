@@ -5,26 +5,26 @@ import { useEffect, useState } from "react";
 // import Head from "next/head";
 import Seo from "../components/Seo";
 
-export default function Home() {
-    const [movies, setMovies] = useState();
-    useEffect(() => {
-        // async/await 사용하여 json 형태로 object 반환
-        (async () => {
-            // next.config.js에 rewrites()로 작성한 source 주소를 fetch에 대입
-            const { results } = await (await fetch(`/api/movies`)).json();
-            setMovies(results);
-        })();
-    }, [])
+export default function Home({ results }) {
+    // const [movies, setMovies] = useState();
+    // useEffect(() => {
+    //     // async/await 사용하여 json 형태로 object 반환
+    //     (async () => {
+    //         // next.config.js에 rewrites()로 작성한 source 주소를 fetch에 대입
+    //         const { results } = await (await fetch(`/api/movies`)).json();
+    //         setMovies(results);
+    //     })();
+    // }, [])
     // const [counter, setCounter] = useState(0);
     return (
         <div className="container">
             <Seo title="Home" />
             {/* Loading 구현 */}
-            {!movies && <h4>Loading...</h4>}
+            {/* {!movies && <h4>Loading...</h4>} */}
             {/* empty array일 경우 아무것도 하지않기 및 map 에러 방지용 "?" 삽입 */}
-            {movies?.map(movie => (
+            {results?.map(movie => (
                 // id와 original_title은 api의 속성자
-                <div key={movie.id}>
+                <div className="movie" key={movie.id}>
                     <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
                     <h4>{movie.original_title}</h4>
                 </div>
@@ -52,4 +52,17 @@ export default function Home() {
             `}</style>
         </div>
     )
+}
+
+// Next.js 핵심 SSR 기능 - Only happen in backend server
+// _app.js 작동 후 SSR을 통해 Props를 반환 한 후 메인 페이지가 렌더링됌
+// 서버에서 HTML로 렌더 완료한 후 보내게됌
+export async function getServerSideProps() {
+    // 서버에서 바라볼 url을 full로 기입해줘야 작동함
+    const { results } = await (await fetch(`http://localhost:3000/api/movies`)).json();
+    return {
+        props: {
+            results,
+        },
+    };
 }

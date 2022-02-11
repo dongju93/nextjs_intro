@@ -1,9 +1,18 @@
+/* global.css를 파일이나 컴포넌트에 직접 import 시킬수 없고
+반드시 module.css 화 시키거나 _app.js에 명시하여야한다. */
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+body {
+  max-width: 520px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 a {

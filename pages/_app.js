@@ -1,7 +1,19 @@
-import '../styles/globals.css'
+import Layout from "../components/Layout";
+import NavBar from "../components/NavBar";
+import "../styles/globals.css";
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
-}
-
-export default MyApp
+export default function Blue({ Component, pageProps }) {
+    return (
+        <>
+            <Layout>
+                <Component {...pageProps} />
+            </Layout>
+            
+            <style jsx> {`
+                a {
+                    color: red;
+                }
+            `} </style>
+        </>
+    )
+};

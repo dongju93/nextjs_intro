@@ -59,7 +59,7 @@ export default function Home({ results }) {
 // 서버에서 HTML로 렌더 완료한 후 보내게됌
 export async function getServerSideProps() {
     // 서버에서 바라볼 url을 full로 기입해줘야 작동함
-    const { results } = await (await fetch(`http://localhost:3000/api/movies`)).json();
+    const { results } = await (await fetch(`https://timely-gnome-6d0854.netlify.app/api/movies`)).json();
     return {
         props: {
             results,

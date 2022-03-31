@@ -3,9 +3,24 @@
 import { useEffect, useState } from "react";
 // import NavBar from "../components/NavBar";
 // import Head from "next/head";
+import Link from "next/link"
 import Seo from "../components/Seo";
+// Gotrue-js auth 예시 실습
+import GoTrue from "gotrue-js";
+import { useRouter } from "next/router";
+
+const auth = new GoTrue({
+    APIUrl: 'http://localhost:3000/.netlify/identity',
+    audience: '',
+    setCookie: false,
+});
 
 export default function Home({ results }) {
+    const router = useRouter();
+    // onClick 함수를 사용하는 
+    const onClick = (id, title) => {
+        router.push(`/movies/${title}/${id}`);
+    };
     // const [movies, setMovies] = useState();
     // useEffect(() => {
     //     // async/await 사용하여 json 형태로 object 반환
@@ -24,9 +39,15 @@ export default function Home({ results }) {
             {/* empty array일 경우 아무것도 하지않기 및 map 에러 방지용 "?" 삽입 */}
             {results?.map(movie => (
                 // id와 original_title은 api의 속성자
-                <div className="movie" key={movie.id}>
-                    <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
-                    <h4>{movie.original_title}</h4>
+                <div onClick={()=>onClick(movie.id, movie.original_title)} className="movie" key={movie.id}>
+                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+                    <h4>
+                        {/* movie 포스터를 onClick 했을때와 마찬가지로 h4로 기재된 title을 클릭했을 때
+                        동일하게 페이지 전환 및 파라미터 넘김을 수행 */}
+                        <Link href={`/movies/${movie.original_title}/${movie.id}`}>
+                            <a>{movie.original_title}</a>
+                        </Link>
+                    </h4>
                 </div>
             ))}
             <style jsx>{`
@@ -35,6 +56,9 @@ export default function Home({ results }) {
                     grid-template-columns: 1fr 1fr;
                     padding: 20px;
                     gap: 20px;
+                }
+                .movie{
+                    cursor: pointer;
                 }
                 .movie img {
                     max-width: 100%;
@@ -59,7 +83,8 @@ export default function Home({ results }) {
 // 서버에서 HTML로 렌더 완료한 후 보내게됌
 export async function getServerSideProps() {
     // 서버에서 바라볼 url을 full로 기입해줘야 작동함
-    const { results } = await (await fetch(`https://timely-gnome-6d0854.netlify.app/api/movies`)).json();
+    // https://timely-gnome-6d0854.netlify.app
+    const { results } = await (await fetch(`http://localhost:3000/api/movies`)).json();
     return {
         props: {
             results,

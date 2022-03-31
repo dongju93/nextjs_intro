@@ -20,6 +20,12 @@ module.exports = {
     return [{
       source: "/api/movies",
       destination: `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`
-    }]
+      },
+      {
+        source: "/api/movies/:id",
+        // source와 destination의 ':id'는 동일하게 작성되어야 함
+        destination: `https://api.themoviedb.org/3/movie/:id?api_key=${API_KEY}`
+      }
+    ]
   }
 }

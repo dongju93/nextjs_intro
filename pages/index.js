@@ -9,11 +9,11 @@ import Seo from "../components/Seo";
 import GoTrue from "gotrue-js";
 import { useRouter } from "next/router";
 
-const auth = new GoTrue({
-    APIUrl: 'http://localhost:3000/.netlify/identity',
-    audience: '',
-    setCookie: false,
-});
+// const auth = new GoTrue({
+//     APIUrl: 'http://localhost:3000/.netlify/identity',
+//     audience: '',
+//     setCookie: false,
+// });
 
 export default function Home({ results }) {
     const router = useRouter();

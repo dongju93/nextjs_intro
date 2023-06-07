@@ -17,11 +17,11 @@ export default function NavBar() {
         <nav>
             <img src="/vercel.svg" />
             <div>
-                <Link href="/" legacyBehavior>
-                    <a className={router.pathname === "/" ? "active" : ""}>Home</a>
+                <Link href="/">
+                    <p className={router.pathname === "/" ? "active" : ""}>Home</p>
                 </Link>
-                <Link href="/about" legacyBehavior>
-                    <a className={router.pathname === "/about" ? "active" : ""}>About</a>
+                <Link href="/about">
+                    <p className={router.pathname === "/about" ? "active" : ""}>About</p>
                 </Link>
             </div>
             <style jsx>{`
@@ -39,7 +39,7 @@ export default function NavBar() {
                     max-width: 100px;
                     margin-bottom: 5px;
                 }
-                nav a {
+                nav p {
                     font-weight: 600;
                     font-size: 18px;
                 }

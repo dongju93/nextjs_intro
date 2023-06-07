@@ -45,7 +45,7 @@ export default function Home({ results }) {
                         {/* movie 포스터를 onClick 했을때와 마찬가지로 h4로 기재된 title을 클릭했을 때
                         동일하게 페이지 전환 및 파라미터 넘김을 수행 */}
                         <Link href={`/movies/${movie.original_title}/${movie.id}`}>
-                            <a>{movie.original_title}</a>
+                            {movie.original_title}
                         </Link>
                     </h4>
                 </div>

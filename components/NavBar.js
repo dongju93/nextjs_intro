@@ -17,10 +17,10 @@ export default function NavBar() {
         <nav>
             <img src="/vercel.svg" />
             <div>
-                <Link href="/">
+                <Link href="/" legacyBehavior>
                     <a className={router.pathname === "/" ? "active" : ""}>Home</a>
                 </Link>
-                <Link href="/about">
+                <Link href="/about" legacyBehavior>
                     <a className={router.pathname === "/about" ? "active" : ""}>About</a>
                 </Link>
             </div>

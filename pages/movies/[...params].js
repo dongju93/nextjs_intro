@@ -5,7 +5,9 @@ import Seo from "../../components/Seo";
 // 컴포넌트 내부에 있는 router는 client 사이드에서만 실행됨
 export default function Detail({ params }) {
     const router = useRouter();
+    // const [title, id] = params || [];
     const [title, id] = params || [];
+    console.log(router)
     return (
         <div>
             <Seo title={title} />
